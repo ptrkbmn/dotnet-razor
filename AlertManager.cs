@@ -23,22 +23,22 @@ public class AlertManager
 
   public void Add(Alert alert) => _alerts.Add(alert);
 
-  public void Success(string message, string? title = null)
-    => Add(new Alert() { Title = title, Message = message, AlertType = AlertType.Success });
+  public void Success(string message, string? title = null, IEnumerable<string>? details = null)
+    => Add(new Alert() { Title = title, Message = message, AlertType = AlertType.Success, Details = details });
 
-  public void Warning(string message, string? title = null)
-    => Add(new Alert() { Title = title, Message = message, AlertType = AlertType.Warning });
+  public void Warning(string message, string? title = null, IEnumerable<string>? details = null)
+    => Add(new Alert() { Title = title, Message = message, AlertType = AlertType.Warning, Details = details });
 
-  public void Error(string message, string? title = null)
-    => Add(new Alert() { Title = title, Message = message, AlertType = AlertType.Error });
+  public void Error(string message, string? title = null, IEnumerable<string>? details = null)
+    => Add(new Alert() { Title = title, Message = message, AlertType = AlertType.Error, Details = details });
 
   public void Error(Exception exception) => Error(exception.Message);
 
-  public void Info(string message, string? title = null)
-    => Add(new Alert() { Title = title, Message = message, AlertType = AlertType.Info });
+  public void Info(string message, string? title = null, IEnumerable<string>? details = null)
+    => Add(new Alert() { Title = title, Message = message, AlertType = AlertType.Info, Details = details });
 
-  public void Debug(string message, string? title = null)
-    => Add(new Alert() { Title = title, Message = message, AlertType = AlertType.Debug });
+  public void Debug(string message, string? title = null, IEnumerable<string>? details = null)
+    => Add(new Alert() { Title = title, Message = message, AlertType = AlertType.Debug, Details = details });
 
   public void Save()
     => _session.SetString(nameof(AlertManager), JsonSerializer.Serialize(_alerts));
@@ -53,6 +53,8 @@ public class Alert
   public string? Message { get; set; }
 
   public AlertType AlertType { get; set; } = AlertType.Info;
+
+  public IEnumerable<string>? Details { get; set; }
 
   public string BootstrapAlert
   {
