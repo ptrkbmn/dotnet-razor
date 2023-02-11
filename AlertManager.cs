@@ -17,15 +17,11 @@ public class AlertManager
       _alerts = JsonSerializer.Deserialize<List<Alert>>(alertsJson) ?? new List<Alert>();
     else
       _alerts = new List<Alert>();
-
   }
 
   public IEnumerable<Alert> Alerts() => _alerts;
 
-  public void Add(Alert alert)
-  {
-    _alerts.Add(alert);
-  }
+  public void Add(Alert alert) => _alerts.Add(alert);
 
   public void Success(string message, string? title = null)
     => Add(new Alert() { Title = title, Message = message, AlertType = AlertType.Success });
@@ -36,6 +32,8 @@ public class AlertManager
   public void Error(string message, string? title = null)
     => Add(new Alert() { Title = title, Message = message, AlertType = AlertType.Error });
 
+  public void Error(Exception exception) => Error(exception.Message);
+
   public void Info(string message, string? title = null)
     => Add(new Alert() { Title = title, Message = message, AlertType = AlertType.Info });
 
@@ -43,14 +41,9 @@ public class AlertManager
     => Add(new Alert() { Title = title, Message = message, AlertType = AlertType.Debug });
 
   public void Save()
-  {
-    _session.SetString(nameof(AlertManager), JsonSerializer.Serialize(_alerts));
-  }
+    => _session.SetString(nameof(AlertManager), JsonSerializer.Serialize(_alerts));
 
-  public void Clear()
-  {
-    _alerts.Clear();
-  }
+  public void Clear() => _alerts.Clear();
 }
 
 public class Alert
