@@ -1,4 +1,6 @@
 
+using System.Text;
+
 namespace pbdev.Razor.Helpers
 {
   public class ActionGroup
@@ -22,7 +24,7 @@ namespace pbdev.Razor.Helpers
       Icon = icon;
     }
 
-    public ActionItem(string title, string icon, string controller, string action, object? routeValues = null, string? cssClass = null)
+    public ActionItem(string title, string icon, string controller, string action, RouteValues? routeValues = null, string? cssClass = null)
      : this(title, icon)
     {
       Controller = controller;
@@ -39,11 +41,16 @@ namespace pbdev.Razor.Helpers
 
     public string? Action { get; set; }
 
-    public object? RouteValues { get; set; }
+    public RouteValues? RouteValues { get; set; }
 
     public string? CssClass { get; set; }
 
     public bool IsJS { get; set; }
+  }
+
+  public class RouteValues
+  {
+    public object? Id { get; set; }
   }
 
   public class SubmitFormActionItem : ActionItem
