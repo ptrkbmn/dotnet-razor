@@ -62,4 +62,14 @@ namespace pbdev.Razor.Helpers
 
     public string FormId { get; set; }
   }
+
+  public class BackActionItem : ActionItem
+  {
+    public BackActionItem(string title, string? backUrl) : base(title, "arrow-left")
+    {
+      BackUrl = backUrl;
+    }
+
+    public string? BackUrl { get; set; }
+  }
 }
